@@ -3,11 +3,11 @@ BASEDIR =  $$quote($$_PRO_FILE_PWD_)
 
 device {
     CONFIG(debug, debug|release) {
-        INCLUDEPATH +=  $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick) \
-                 $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib)
+        INCLUDEPATH +=  $$quote(/home/leoz/Projects/ImageMagick) \
+                 $$quote(/home/leoz/Projects/ImageMagick/Magick++/lib)
 
-        DEPENDPATH +=  $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick) \
-                 $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib)
+        DEPENDPATH +=  $$quote(/home/leoz/Projects/ImageMagick) \
+                 $$quote(/home/leoz/Projects/ImageMagick/Magick++/lib)
 
         LIBS += -lbbmagick \
                 -lbbtiff
@@ -29,19 +29,19 @@ device {
     }
 
     CONFIG(release, debug|release) {
-        INCLUDEPATH +=  $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick) \
+        INCLUDEPATH +=  $$quote(/home/leoz/Projects/ImageMagick) \
                  $$quote($$BASEDIR/../bbtiff) \
                  $$quote($$BASEDIR/../bbmagick/public) \
-                 $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib) \
                  $$quote($$BASEDIR/../bbmagick) \
-                 $$quote($$BASEDIR/../bbtiff/public)
+                 $$quote($$BASEDIR/../bbtiff/public) \
+                 $$quote(/home/leoz/Projects/ImageMagick/Magick++/lib)
 
-        DEPENDPATH +=  $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick) \
+        DEPENDPATH +=  $$quote(/home/leoz/Projects/ImageMagick) \
                  $$quote($$BASEDIR/../bbtiff) \
                  $$quote($$BASEDIR/../bbmagick/public) \
-                 $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib) \
                  $$quote($$BASEDIR/../bbmagick) \
-                 $$quote($$BASEDIR/../bbtiff/public)
+                 $$quote($$BASEDIR/../bbtiff/public) \
+                 $$quote(/home/leoz/Projects/ImageMagick/Magick++/lib)
 
         LIBS += -lbbmagick \
                 -lbbtiff
@@ -65,19 +65,19 @@ device {
 
 simulator {
     CONFIG(debug, debug|release) {
-        INCLUDEPATH +=  $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick) \
+        INCLUDEPATH +=  $$quote(/home/leoz/Projects/ImageMagick) \
                  $$quote($$BASEDIR/../bbtiff) \
                  $$quote($$BASEDIR/../bbmagick/public) \
-                 $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib) \
                  $$quote($$BASEDIR/../bbmagick) \
-                 $$quote($$BASEDIR/../bbtiff/public)
+                 $$quote($$BASEDIR/../bbtiff/public) \
+                 $$quote(/home/leoz/Projects/ImageMagick/Magick++/lib)
 
-        DEPENDPATH +=  $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick) \
+        DEPENDPATH +=  $$quote(/home/leoz/Projects/ImageMagick) \
                  $$quote($$BASEDIR/../bbtiff) \
                  $$quote($$BASEDIR/../bbmagick/public) \
-                 $$quote(/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib) \
                  $$quote($$BASEDIR/../bbmagick) \
-                 $$quote($$BASEDIR/../bbtiff/public)
+                 $$quote($$BASEDIR/../bbtiff/public) \
+                 $$quote(/home/leoz/Projects/ImageMagick/Magick++/lib)
 
         LIBS += -lbbmagick \
                 -lbbtiff

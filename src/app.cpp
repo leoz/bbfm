@@ -23,8 +23,9 @@
 using namespace bb::cascades;
 
 App::App(QObject *parent)
-    : QObject(parent)
-    , m_model(new QListDataModel<QObject*>())
+: QObject(parent)
+, m_model(new QListDataModel<QObject*>())
+, m_def_path(QDir::rootPath ())
 {
     // Register custom type to QML
     qmlRegisterType<ImageLoader>();
@@ -39,8 +40,7 @@ App::App(QObject *parent)
     Application::instance()->setScene(root);
 
     // Fill the model with data
-	QString path = "/accounts/1000/removable/sdcard/photos/file_types/jpeg";
-    readDir(path);
+    readDir(m_def_path);
 }
 
 bool App::readDir(const QString& path)
@@ -88,6 +88,16 @@ bool App::readDir(const QString& path)
     }
 
     return false;
+}
+
+QString App::getDefPath()
+{
+	return getPath(m_def_path);
+}
+
+QString App::getDefTitle()
+{
+	return getTitle(m_def_path);
 }
 
 QString App::getPath(const QString& path)

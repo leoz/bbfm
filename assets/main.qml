@@ -4,7 +4,8 @@ NavigationPane {
     id: navPane
     
     FileListPage {
-        fileListPageTitle: "Main View"
+        fileListPagePath: _app.getDefPath()
+        fileListPageTitle: _app.getDefTitle()
     }
 }
 

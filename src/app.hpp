@@ -38,6 +38,8 @@ public:
     App(QObject *parent = 0);
 
     Q_INVOKABLE bool readDir(const QString& path);
+    Q_INVOKABLE QString getDefPath();
+    Q_INVOKABLE QString getDefTitle();
     Q_INVOKABLE QString getPath(const QString& path);
     Q_INVOKABLE QString getTitle(const QString& path);
 
@@ -49,6 +51,9 @@ private:
 
     // The model that contains the progress and image data
     bb::cascades::QListDataModel<QObject*>* m_model;
+
+    // Default path
+    QString m_def_path;
 };
 //! [0]
 

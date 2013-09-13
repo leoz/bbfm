@@ -25,9 +25,9 @@
 							<builder autoBuildTarget="Device-Debug" enableAutoBuild="true" id="com.qnx.qcc.toolChain.188394312.2018816138" incrementalBuildTarget="Device-Debug" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" parallelBuildOn="true" parallelizationNumber="optimal" superClass="org.eclipse.cdt.build.core.settings.default.builder"/>
 							<tool id="com.qnx.qcc.tool.compiler.37784726" name="QCC Compiler" superClass="com.qnx.qcc.tool.compiler">
 								<option id="com.qnx.qcc.option.compiler.optlevel.1545431825" name="Optimization Level" superClass="com.qnx.qcc.option.compiler.optlevel" value="com.qnx.qcc.option.compiler.optlevel.0" valueType="enumerated"/>
-								<option id="com.qnx.qcc.option.compiler.includePath.874522870" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
-									<listOptionValue builtIn="false" value="/home/leoz/ndk-10.2-workspace/ImageMagick"/>
-									<listOptionValue builtIn="false" value="/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib"/>
+								<option id="com.qnx.qcc.option.compiler.includePath.874522870" name="Include Directories (-I)" superClass="com.qnx.qcc.option.compiler.includePath" valueType="includePath">
+									<listOptionValue builtIn="false" value="/home/leoz/Projects/ImageMagick"/>
+									<listOptionValue builtIn="false" value="/home/leoz/Projects/ImageMagick/Magick++/lib"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.854043979" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
@@ -84,8 +84,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbtiff}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbmagick/public}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbmagick}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/leoz/ndk-10.2-workspace/ImageMagick"/>
-									<listOptionValue builtIn="false" value="/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib"/>
+									<listOptionValue builtIn="false" value="/home/leoz/Projects/ImageMagick"/>
+									<listOptionValue builtIn="false" value="/home/leoz/Projects/ImageMagick/Magick++/lib"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.625250589" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
@@ -166,8 +166,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbtiff}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbmagick/public}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbmagick}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/leoz/ndk-10.2-workspace/ImageMagick"/>
-									<listOptionValue builtIn="false" value="/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib"/>
+									<listOptionValue builtIn="false" value="/home/leoz/Projects/ImageMagick"/>
+									<listOptionValue builtIn="false" value="/home/leoz/Projects/ImageMagick/Magick++/lib"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.1560571718" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
@@ -248,8 +248,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbtiff}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbmagick/public}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/bbmagick}&quot;"/>
-									<listOptionValue builtIn="false" value="/home/leoz/ndk-10.2-workspace/ImageMagick"/>
-									<listOptionValue builtIn="false" value="/home/leoz/ndk-10.2-workspace/ImageMagick/Magick++/lib"/>
+									<listOptionValue builtIn="false" value="/home/leoz/Projects/ImageMagick"/>
+									<listOptionValue builtIn="false" value="/home/leoz/Projects/ImageMagick/Magick++/lib"/>
 								</option>
 								<inputType id="com.qnx.qcc.inputType.compiler.322865963" superClass="com.qnx.qcc.inputType.compiler"/>
 							</tool>
