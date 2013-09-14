@@ -25,7 +25,8 @@ using namespace bb::cascades;
 App::App(QObject *parent)
 : QObject(parent)
 , m_model(new QListDataModel<QObject*>())
-, m_def_path(QDir::rootPath ())
+, m_dev_path("accounts/1000/shared")
+, m_def_path(QDir::rootPath () + m_dev_path)
 {
     // Register custom type to QML
     qmlRegisterType<ImageLoader>();

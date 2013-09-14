@@ -53,6 +53,7 @@ private:
     bb::cascades::QListDataModel<QObject*>* m_model;
 
     // Default path
+    QString m_dev_path;
     QString m_def_path;
 };
 //! [0]

@@ -1,40 +1,51 @@
 import bb.cascades 1.2
 
 Page {    
-    property alias fileListPageTitle: title_name.text
+    property alias fileListPageTitle: titlebar.title
     property alias fileListPagePath: title_path.text
     titleBar: TitleBar {
         id: titlebar
-        kind: TitleBarKind.FreeForm
-        kindProperties: FreeFormTitleBarKindProperties {
-            Container {
-                layout: StackLayout { orientation: LayoutOrientation.TopToBottom }
-                leftPadding: 10
-                rightPadding: 10
-                Label {
-                    id: title_name
-                    textStyle {
-                        color: Color.White
-                    }
-                    verticalAlignment: VerticalAlignment.Center
-                    layoutProperties: StackLayoutProperties { spaceQuota: 1 }
-                }
-                Label {
-                    id: title_path
-                    verticalAlignment: VerticalAlignment.Center
-                }
-            }
-        }
     }
 
     Container {
         horizontalAlignment: HorizontalAlignment.Fill
         verticalAlignment: VerticalAlignment.Fill
-        layout: DockLayout {
+        
+        layout: StackLayout {
+            orientation: LayoutOrientation.TopToBottom
         }
+        
+        Container {
+            horizontalAlignment: HorizontalAlignment.Fill
+            verticalAlignment: VerticalAlignment.Top
+            
+            background: Color.DarkGray
+            
+            bottomPadding: 2
+
+            Container {
+                horizontalAlignment: HorizontalAlignment.Fill
+                verticalAlignment: VerticalAlignment.Top
+
+                background: Color.White
+                
+                leftPadding: 10
+                
+                
+                Label {
+                    id: title_path
+                    
+                    textStyle {
+                        base: SystemDefaults.TextStyles.SubtitleText
+                        color: Color.DarkGray
+                    }
+                }                
+            }
+        }
+
         ListView {
             horizontalAlignment: HorizontalAlignment.Center
-            verticalAlignment: VerticalAlignment.Top
+            verticalAlignment: VerticalAlignment.Bottom
             
             dataModel: _app.model
                         
