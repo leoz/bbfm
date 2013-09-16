@@ -91,6 +91,8 @@ private:
 
     void setDefaultImage();
 
+    bool isImage() const;
+
     // The property values
     bb::cascades::Image m_image;
     QString m_label;

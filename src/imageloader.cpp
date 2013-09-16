@@ -242,6 +242,40 @@ void ImageLoader::setDefaultImage()
 		}
 	}
 	else {
-		m_image = Image(QUrl("asset:///images/unknown.png"));
+		if (isImage()) {
+			m_image = Image(QUrl("asset:///images/image-x-generic.png"));
+		}
+		else {
+			m_image = Image(QUrl("asset:///images/unknown.png"));
+		}
 	}
 }
+
+bool ImageLoader::isImage() const
+{
+    QStringList list;
+
+    // Supported natively
+    list << "png" << "jpeg" << "jpg" << "gif" << "bmp";
+
+    // Supported by ImageMagick
+    list << "xpm" << "tiff" << "tif" << "raw" << "miff" << "mif";
+
+    QStringListIterator i(list);
+
+    QString ext(m_fileInfo.suffix());
+    ext = ext.toLower();
+
+    while(i.hasNext()) {
+        if (ext == i.next()) {
+        	qWarning() << m_fileInfo.fileName() << " - IS IMAGE!!!";
+        	return true;
+        }
+    }
+
+	qWarning() << m_fileInfo.fileName() << " - IS NOT IMAGE!!!";
+    return false;
+}
+
+
+
