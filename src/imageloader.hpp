@@ -86,6 +86,9 @@ private:
     QString size() const;
     QString path() const;
 
+    QString getDirSize() const;
+    QString getFileSize() const;
+
     void setDefaultImage();
 
     // The property values

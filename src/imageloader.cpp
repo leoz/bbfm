@@ -189,14 +189,34 @@ QString ImageLoader::date() const
 QString ImageLoader::size() const
 {
 	if (m_fileInfo.isDir()) {
-		return QString("<DIR>");
+		return getDirSize();
 	}
-	return QString::number(m_fileInfo.size());
+	return getFileSize();
 }
 
 QString ImageLoader::path() const
 {
     return m_fileInfo.filePath();
+}
+
+QString ImageLoader::getDirSize() const
+{
+	if (m_fileInfo.fileName() == QString("..")) {
+		return QString("<DIR>");
+
+	}
+	QDir dir(m_fileInfo.filePath());
+	uint count = dir.count();
+	QString text("items");
+	if(count == 1) {
+		text = QString("item");
+	}
+	return QString(QString::number(count) + " " + text);
+}
+
+QString ImageLoader::getFileSize() const
+{
+	return QString::number(m_fileInfo.size());
 }
 
 void ImageLoader::setDefaultImage()
