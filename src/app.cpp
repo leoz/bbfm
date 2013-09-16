@@ -68,6 +68,7 @@ bool App::readDir(const QString& path)
 		QString root_nm("..");
 		QString dir_nm(".");
 
+		QString cur_name("");
 
 		foreach(const QFileInfo &fi, files) {
 			nm = fi.fileName();
@@ -75,7 +76,11 @@ bool App::readDir(const QString& path)
 			if (!(remove_root && nm == root_nm)) {
 				// Do not include "."
 				if (!(nm == dir_nm)) {
-					m_model->append(new ImageLoader(fi, this));
+					// Fix duplicate entries
+					if (nm != cur_name) {
+						cur_name = nm;
+						m_model->append(new ImageLoader(fi, this));
+					}
 				}
 			}
 			else {
