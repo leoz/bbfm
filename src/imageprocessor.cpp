@@ -53,6 +53,10 @@ QImage ImageProcessor::start()
         	Blob blob(m_data.constData(), m_data.size());
         	Image img(blob);
 
+        	Geometry geom(img_size,img_size);
+
+        	img.scale(geom);
+
         	image = convert(img);
     	}
     	catch( exception &error_ ) {
