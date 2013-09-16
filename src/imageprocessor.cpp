@@ -39,11 +39,13 @@ QImage ImageProcessor::start()
 //    int img_w = 768;
 //    int img_h = 500;
 
-    int img_w = 128;
-    int img_h = 128;
+    int img_size = 90;
+
+    int img_w = img_size;
+    int img_h = img_size;
 
     if(result) {
-        image = image.scaled(img_w, img_h, Qt::KeepAspectRatioByExpanding);
+        image = image.scaled(img_w, img_h, Qt::KeepAspectRatio);
     }
     else {
     	// Try ImageMagick
