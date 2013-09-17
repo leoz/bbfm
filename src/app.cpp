@@ -45,7 +45,7 @@ App::App(QObject *parent)
     FileDataIcon::loadIcons();
 
     // Fill the model with data
-    action(m_def_path);
+    showFileList(m_def_path);
 }
 
 App::~App()
@@ -54,34 +54,52 @@ App::~App()
     FileDataIcon::freeIcons();
 }
 
-bool App::action(const QString& path)
+QFileInfo App::normalizeInfo(QFileInfo& info)
 {
-    qWarning() << "App::action" << path;
+    if (info.fileName() == QString("..")) {
+        qWarning() << "App::normalizeInfo : shall be normalized!";
+        info = info.canonicalFilePath();
+        qWarning() << "App::normalizeInfo : normalized path: " << info.filePath();
+    }
+
+    return info;
+}
+
+bool App::showFileList(const QString& path)
+{
+    qWarning() << "App::showFileList" << path;
 
     QFileInfo info(path);
 
-    if (info.fileName() == QString("..")) {
-        qWarning() << "App::action : shall be normalized!";
-        info = info.canonicalFilePath();
-        qWarning() << "App::action : normalized path: " << info.filePath();
-    }
+    info = normalizeInfo(info);
 
     bool result(false);
 
     if (info.isDir()) {
     	if (info.isReadable() && info.isExecutable()) {
     	    result = true;
-    	    dirAction(info);
+    	    readDir(info);
     	}
     }
     else {
-	    fileAction(info);
+    	if(!FileDataFactory::isSupportedImage(info)) {
+        	invokeFile(info);
+    	}
     }
 
     return result;
 }
 
-void App::dirAction(const QFileInfo& info)
+bool App::showImageView(const QString& path)
+{
+    QFileInfo info(path);
+
+    info = normalizeInfo(info);
+
+    return FileDataFactory::isSupportedImage(info);
+}
+
+void App::readDir(const QFileInfo& info)
 {
 	QDir dir(info.filePath());
 	QFileInfoList files = dir.entryInfoList();
@@ -117,7 +135,7 @@ void App::dirAction(const QFileInfo& info)
 	loadImages();
 }
 
-void App::fileAction(const QFileInfo& info)
+void App::invokeFile(const QFileInfo& info)
 {
 	navigator_invoke_invocation_t *invoke = NULL;
 	navigator_invoke_invocation_create(&invoke);

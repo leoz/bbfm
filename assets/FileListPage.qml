@@ -3,6 +3,7 @@ import bb.cascades 1.2
 Page {    
     property alias fileListPageTitle: titlebar.title
     property alias fileListPagePath: title_path.text
+    
     titleBar: TitleBar {
         id: titlebar
     }
@@ -64,11 +65,19 @@ Page {
             onTriggered: {
 				var chosenItem = dataModel.data(indexPath);
                 var path = chosenItem.path
-                if(_app.action(path)){
-                    var nextPage = page.createObject();
+                if(_app.showFileList(path)){
+                    var nextPage = file_list_page.createObject();
                     nextPage.fileListPagePath = _app.getPath(path)
                     nextPage.fileListPageTitle = _app.getTitle(path)
                     navPane.push(nextPage);                    
+                }
+                else {
+                    if(_app.showImageView(path)) {
+                        var p = image_view_page.createObject();
+//                        p.fileListPagePath = _app.getPath(path)
+                        p.imageViewPageTitle = _app.getTitle(path)
+                        navPane.push(p);                                            
+                    }
                 }
             }
         }
@@ -76,8 +85,12 @@ Page {
     
     attachedObjects: [
         ComponentDefinition {
-            id: page
+            id: file_list_page
             source: "FileListPage.qml"
+        },
+        ComponentDefinition {
+            id: image_view_page
+            source: "ImageViewPage.qml"            
         }
     ]
 }

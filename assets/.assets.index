@@ -1,6 +1,7 @@
 1
-6
+7
 FileListPage.qml
+ImageViewPage.qml
 main.qml
 images/folder.png
 images/unknown.png

@@ -15,6 +15,7 @@ class FileData;
 struct FileDataFactory {
     static FileData* create(const QFileInfo& info);
     static bool isImage(const QFileInfo& info);
+    static bool isSupportedImage(const QFileInfo& info);
 
 private:
     static void setImageExts();
@@ -24,7 +25,7 @@ private:
     // System supported image formats
     static QStringList m_image_sys_list;
     // Image formats supported by ImageMagick
-    static QStringList m_image_imk_list;
+    static QStringList m_image_sup_list;
     // Unsupported image formats
     static QStringList m_image_uns_list;
 };
