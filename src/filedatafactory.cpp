@@ -48,18 +48,27 @@ bool FileDataFactory::isImage(const QFileInfo& info)
 }
 
 QStringList FileDataFactory::m_image_ext_list;
+QStringList FileDataFactory::m_image_sys_list;
+QStringList FileDataFactory::m_image_imk_list;
+QStringList FileDataFactory::m_image_uns_list;
 
 void FileDataFactory::setImageExts()
 {
 	if (m_image_ext_list.empty()) {
 
-	    // Supported natively
-		m_image_ext_list << "png" << "jpeg" << "jpg" << "gif" << "bmp";
+	    // System supported image formats
+		m_image_sys_list << "png" << "jpeg" << "jpg" << "gif" << "bmp";
 
-		// Supported extra formats
-		m_image_ext_list << "svg" << "ico";
+	    // Image formats supported by ImageMagick
+		m_image_imk_list << "tiff" << "tif";
+		m_image_imk_list << "miff" << "mif";
+		m_image_imk_list << "svg" << "ico" << "xpm";
 
-	    // Supported by ImageMagick
-		m_image_ext_list << "xpm" << "tiff" << "tif" << "raw" << "miff" << "mif" << "cr2";
+	    // Unsupported image formats
+		m_image_uns_list << "raw" << "cr2";
+
+		m_image_ext_list.append(m_image_sys_list);
+		m_image_ext_list.append(m_image_imk_list);
+		m_image_ext_list.append(m_image_uns_list);
 	}
 }

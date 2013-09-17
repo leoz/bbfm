@@ -19,7 +19,14 @@ struct FileDataFactory {
 private:
     static void setImageExts();
 
+    // All image formats
     static QStringList m_image_ext_list;
+    // System supported image formats
+    static QStringList m_image_sys_list;
+    // Image formats supported by ImageMagick
+    static QStringList m_image_imk_list;
+    // Unsupported image formats
+    static QStringList m_image_uns_list;
 };
 
 
