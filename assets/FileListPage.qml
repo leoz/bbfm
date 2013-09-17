@@ -53,7 +53,7 @@ Page {
                 ListItemComponent {
                     type: ""
                     StandardListItem {
-                        image: ListItemData.image
+                        image: ListItemData.icon
                         title: ListItemData.name
                         description: ListItemData.date
                         status: ListItemData.size

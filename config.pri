@@ -19,12 +19,20 @@ device {
                  $$quote($$BASEDIR/../bbtiff/Device-Debug)
 
         SOURCES +=  $$quote($$BASEDIR/src/app.cpp) \
-                 $$quote($$BASEDIR/src/imageloader.cpp) \
+                 $$quote($$BASEDIR/src/dirdata.cpp) \
+                 $$quote($$BASEDIR/src/filedata.cpp) \
+                 $$quote($$BASEDIR/src/filedatafactory.cpp) \
+                 $$quote($$BASEDIR/src/filedataicon.cpp) \
+                 $$quote($$BASEDIR/src/imagedata.cpp) \
                  $$quote($$BASEDIR/src/imageprocessor.cpp) \
                  $$quote($$BASEDIR/src/main.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/app.hpp) \
-                 $$quote($$BASEDIR/src/imageloader.hpp) \
+                 $$quote($$BASEDIR/src/dirdata.hpp) \
+                 $$quote($$BASEDIR/src/filedata.hpp) \
+                 $$quote($$BASEDIR/src/filedatafactory.hpp) \
+                 $$quote($$BASEDIR/src/filedataicon.hpp) \
+                 $$quote($$BASEDIR/src/imagedata.hpp) \
                  $$quote($$BASEDIR/src/imageprocessor.hpp)
     }
 
@@ -53,12 +61,20 @@ device {
                  $$quote($$BASEDIR/../bbtiff/Device-Release)
 
         SOURCES +=  $$quote($$BASEDIR/src/app.cpp) \
-                 $$quote($$BASEDIR/src/imageloader.cpp) \
+                 $$quote($$BASEDIR/src/dirdata.cpp) \
+                 $$quote($$BASEDIR/src/filedata.cpp) \
+                 $$quote($$BASEDIR/src/filedatafactory.cpp) \
+                 $$quote($$BASEDIR/src/filedataicon.cpp) \
+                 $$quote($$BASEDIR/src/imagedata.cpp) \
                  $$quote($$BASEDIR/src/imageprocessor.cpp) \
                  $$quote($$BASEDIR/src/main.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/app.hpp) \
-                 $$quote($$BASEDIR/src/imageloader.hpp) \
+                 $$quote($$BASEDIR/src/dirdata.hpp) \
+                 $$quote($$BASEDIR/src/filedata.hpp) \
+                 $$quote($$BASEDIR/src/filedatafactory.hpp) \
+                 $$quote($$BASEDIR/src/filedataicon.hpp) \
+                 $$quote($$BASEDIR/src/imagedata.hpp) \
                  $$quote($$BASEDIR/src/imageprocessor.hpp)
     }
 }
@@ -89,12 +105,20 @@ simulator {
                  $$quote($$BASEDIR/../bbtiff/Simulator-Debug)
 
         SOURCES +=  $$quote($$BASEDIR/src/app.cpp) \
-                 $$quote($$BASEDIR/src/imageloader.cpp) \
+                 $$quote($$BASEDIR/src/dirdata.cpp) \
+                 $$quote($$BASEDIR/src/filedata.cpp) \
+                 $$quote($$BASEDIR/src/filedatafactory.cpp) \
+                 $$quote($$BASEDIR/src/filedataicon.cpp) \
+                 $$quote($$BASEDIR/src/imagedata.cpp) \
                  $$quote($$BASEDIR/src/imageprocessor.cpp) \
                  $$quote($$BASEDIR/src/main.cpp)
 
         HEADERS +=  $$quote($$BASEDIR/src/app.hpp) \
-                 $$quote($$BASEDIR/src/imageloader.hpp) \
+                 $$quote($$BASEDIR/src/dirdata.hpp) \
+                 $$quote($$BASEDIR/src/filedata.hpp) \
+                 $$quote($$BASEDIR/src/filedatafactory.hpp) \
+                 $$quote($$BASEDIR/src/filedataicon.hpp) \
+                 $$quote($$BASEDIR/src/imagedata.hpp) \
                  $$quote($$BASEDIR/src/imageprocessor.hpp)
     }
 }

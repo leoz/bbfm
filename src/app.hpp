@@ -16,8 +16,6 @@
 #ifndef APP_HPP
 #define APP_HPP
 
-#include "imageloader.hpp"
-
 #include <QtCore/QObject>
 #include <QtCore/QVector>
 
@@ -36,6 +34,7 @@ class App : public QObject
 
 public:
     App(QObject *parent = 0);
+    ~App();
 
     Q_INVOKABLE bool readDir(const QString& path);
     Q_INVOKABLE QString getDefPath();

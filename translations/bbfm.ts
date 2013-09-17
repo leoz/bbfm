@@ -2,14 +2,14 @@
 <!DOCTYPE TS>
 <TS version="2.0">
 <context>
-    <name>ImageLoader</name>
+    <name>ImageData</name>
     <message>
-        <location filename="../src/imageloader.cpp" line="118"/>
+        <location filename="../src/imagedata.cpp" line="96"/>
         <source>Error: %1 status: %2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../src/imageloader.cpp" line="127"/>
+        <location filename="../src/imagedata.cpp" line="105"/>
         <source>Download failed. Check internet connection</source>
         <translation type="unfinished"></translation>
     </message>
