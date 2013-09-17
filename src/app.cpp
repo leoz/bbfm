@@ -21,6 +21,7 @@
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
+#include <bps/navigator_invoke.h>
 #include <QDebug>
 
 using namespace bb::cascades;
@@ -44,7 +45,7 @@ App::App(QObject *parent)
     FileDataIcon::loadIcons();
 
     // Fill the model with data
-    readDir(m_def_path);
+    action(m_def_path);
 }
 
 App::~App()
@@ -53,56 +54,81 @@ App::~App()
     FileDataIcon::freeIcons();
 }
 
-bool App::readDir(const QString& path)
+bool App::action(const QString& path)
 {
-    qWarning() << "##### App::readDir : " << path;
+    qWarning() << "App::action" << path;
 
     QFileInfo info(path);
 
     if (info.fileName() == QString("..")) {
-        qWarning() << "##### App::readDir : shall be normalized!";
+        qWarning() << "App::action : shall be normalized!";
         info = info.canonicalFilePath();
-        qWarning() << "##### App::readDir : normalized path: " << info.filePath();
+        qWarning() << "App::action : normalized path: " << info.filePath();
     }
 
-    if (info.isDir() && info.isReadable() && info.isExecutable()) {
-		QDir dir(info.filePath());
-		QFileInfoList files = dir.entryInfoList();
+    bool result(false);
 
-		m_model->clear();
+    if (info.isDir()) {
+    	if (info.isReadable() && info.isExecutable()) {
+    	    result = true;
+    	    dirAction(info);
+    	}
+    }
+    else {
+	    fileAction(info);
+    }
 
-		bool remove_root = info.isRoot();
+    return result;
+}
 
-		QString nm("");
-		QString root_nm("..");
-		QString dir_nm(".");
+void App::dirAction(const QFileInfo& info)
+{
+	QDir dir(info.filePath());
+	QFileInfoList files = dir.entryInfoList();
 
-		QString cur_name("");
+	m_model->clear();
 
-		foreach(const QFileInfo &fi, files) {
-			nm = fi.fileName();
-			// Do not include ".." for root
-			if (!(remove_root && nm == root_nm)) {
-				// Do not include "."
-				if (!(nm == dir_nm)) {
-					// Fix duplicate entries
-					if (nm != cur_name) {
-						cur_name = nm;
-						m_model->append(FileDataFactory::create(fi));
-					}
+	bool remove_root = info.isRoot();
+
+	QString nm("");
+	QString root_nm("..");
+	QString dir_nm(".");
+
+	QString cur_name("");
+
+	foreach(const QFileInfo &fi, files) {
+		nm = fi.fileName();
+		// Do not include ".." for root
+		if (!(remove_root && nm == root_nm)) {
+			// Do not include "."
+			if (!(nm == dir_nm)) {
+				// Fix duplicate entries
+				if (nm != cur_name) {
+					cur_name = nm;
+					m_model->append(FileDataFactory::create(fi));
 				}
 			}
-			else {
-				remove_root = false;
-			}
 		}
+		else {
+			remove_root = false;
+		}
+	}
 
-		loadImages();
+	loadImages();
+}
 
-		return true;
-    }
+void App::fileAction(const QFileInfo& info)
+{
+	navigator_invoke_invocation_t *invoke = NULL;
+	navigator_invoke_invocation_create(&invoke);
 
-    return false;
+	QUrl u(QUrl::fromLocalFile(info.filePath()));
+	QString url(u.toString());
+	QByteArray bytes = url.toUtf8();
+	navigator_invoke_invocation_set_uri(invoke, bytes.constData());
+
+	navigator_invoke_invocation_send(invoke);
+	navigator_invoke_invocation_destroy(invoke);
 }
 
 QString App::getDefPath()

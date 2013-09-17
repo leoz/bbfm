@@ -36,7 +36,7 @@ public:
     App(QObject *parent = 0);
     ~App();
 
-    Q_INVOKABLE bool readDir(const QString& path);
+    Q_INVOKABLE bool action(const QString& path);
     Q_INVOKABLE QString getDefPath();
     Q_INVOKABLE QString getDefTitle();
     Q_INVOKABLE QString getPath(const QString& path);
@@ -44,6 +44,9 @@ public:
 
 private:
     void loadImages();
+    void dirAction(const QFileInfo& info);
+    void fileAction(const QFileInfo& info);
+
 
     // The accessor method for the property
     bb::cascades::DataModel* model() const;

@@ -64,7 +64,7 @@ Page {
             onTriggered: {
 				var chosenItem = dataModel.data(indexPath);
                 var path = chosenItem.path
-                if(_app.readDir(path)){
+                if(_app.action(path)){
                     var nextPage = page.createObject();
                     nextPage.fileListPagePath = _app.getPath(path)
                     nextPage.fileListPageTitle = _app.getTitle(path)
