@@ -8,13 +8,21 @@ Page {
     titleBar: TitleBar {
         id: title_bar
     }
-
-    ImageView {
-        id: image_view
-        image: image_data.icon
-        scalingMethod: ScalingMethod.AspectFit
-    }
     
+    Container {
+        layout: DockLayout {}
+        background: Color.Black
+        
+        ImageView {
+            horizontalAlignment: HorizontalAlignment.Center
+            verticalAlignment: VerticalAlignment.Center
+            
+            id: image_view
+            image: image_data.icon
+            scalingMethod: ScalingMethod.AspectFit
+        }        
+    }
+ 
     attachedObjects: [
 	    ImageData {
 	        id: image_data
