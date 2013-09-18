@@ -23,6 +23,7 @@ device {
                  $$quote($$BASEDIR/src/filedata.cpp) \
                  $$quote($$BASEDIR/src/filedatafactory.cpp) \
                  $$quote($$BASEDIR/src/filedataicon.cpp) \
+                 $$quote($$BASEDIR/src/filedatalistmodel.cpp) \
                  $$quote($$BASEDIR/src/imagedata.cpp) \
                  $$quote($$BASEDIR/src/imageprocessor.cpp) \
                  $$quote($$BASEDIR/src/main.cpp)
@@ -32,6 +33,7 @@ device {
                  $$quote($$BASEDIR/src/filedata.hpp) \
                  $$quote($$BASEDIR/src/filedatafactory.hpp) \
                  $$quote($$BASEDIR/src/filedataicon.hpp) \
+                 $$quote($$BASEDIR/src/filedatalistmodel.hpp) \
                  $$quote($$BASEDIR/src/imagedata.hpp) \
                  $$quote($$BASEDIR/src/imageprocessor.hpp) \
                  $$quote($$BASEDIR/src/imagesize.hpp)
@@ -66,6 +68,7 @@ device {
                  $$quote($$BASEDIR/src/filedata.cpp) \
                  $$quote($$BASEDIR/src/filedatafactory.cpp) \
                  $$quote($$BASEDIR/src/filedataicon.cpp) \
+                 $$quote($$BASEDIR/src/filedatalistmodel.cpp) \
                  $$quote($$BASEDIR/src/imagedata.cpp) \
                  $$quote($$BASEDIR/src/imageprocessor.cpp) \
                  $$quote($$BASEDIR/src/main.cpp)
@@ -75,6 +78,7 @@ device {
                  $$quote($$BASEDIR/src/filedata.hpp) \
                  $$quote($$BASEDIR/src/filedatafactory.hpp) \
                  $$quote($$BASEDIR/src/filedataicon.hpp) \
+                 $$quote($$BASEDIR/src/filedatalistmodel.hpp) \
                  $$quote($$BASEDIR/src/imagedata.hpp) \
                  $$quote($$BASEDIR/src/imageprocessor.hpp) \
                  $$quote($$BASEDIR/src/imagesize.hpp)
@@ -111,6 +115,7 @@ simulator {
                  $$quote($$BASEDIR/src/filedata.cpp) \
                  $$quote($$BASEDIR/src/filedatafactory.cpp) \
                  $$quote($$BASEDIR/src/filedataicon.cpp) \
+                 $$quote($$BASEDIR/src/filedatalistmodel.cpp) \
                  $$quote($$BASEDIR/src/imagedata.cpp) \
                  $$quote($$BASEDIR/src/imageprocessor.cpp) \
                  $$quote($$BASEDIR/src/main.cpp)
@@ -120,6 +125,7 @@ simulator {
                  $$quote($$BASEDIR/src/filedata.hpp) \
                  $$quote($$BASEDIR/src/filedatafactory.hpp) \
                  $$quote($$BASEDIR/src/filedataicon.hpp) \
+                 $$quote($$BASEDIR/src/filedatalistmodel.hpp) \
                  $$quote($$BASEDIR/src/imagedata.hpp) \
                  $$quote($$BASEDIR/src/imageprocessor.hpp) \
                  $$quote($$BASEDIR/src/imagesize.hpp)

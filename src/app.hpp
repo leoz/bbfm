@@ -21,10 +21,8 @@
 
 #include <bb/cascades/QListDataModel>
 
-/**
- * @short The central class of the application
- */
-//! [0]
+class FileDataListModel;
+
 class App : public QObject
 {
     Q_OBJECT
@@ -44,8 +42,6 @@ public:
     Q_INVOKABLE QString getTitle(const QString& path);
 
 private:
-    void loadImages();
-    void readDir(const QFileInfo& info);
     void invokeFile(const QFileInfo& info);
     QFileInfo normalizeInfo(QFileInfo& info);
 
@@ -53,12 +49,11 @@ private:
     bb::cascades::DataModel* model() const;
 
     // The model that contains the progress and image data
-    bb::cascades::QListDataModel<QObject*>* m_model;
+    FileDataListModel* m_model;
 
     // Default path
     QString m_dev_path;
     QString m_def_path;
 };
-//! [0]
 
 #endif

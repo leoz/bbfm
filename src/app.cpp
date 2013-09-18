@@ -18,6 +18,7 @@
 #include "filedataicon.hpp"
 #include "filedatafactory.hpp"
 #include "imagedata.hpp"
+#include "filedatalistmodel.hpp"
 
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/Application>
@@ -29,14 +30,12 @@ using namespace bb::cascades;
 
 App::App(QObject *parent)
 : QObject(parent)
-, m_model(new QListDataModel<QObject*>())
+, m_model(new FileDataListModel(this))
 , m_dev_path("accounts/1000/shared")
 , m_def_path(QDir::rootPath () + m_dev_path)
 {
     // Register custom type to QML
     qmlRegisterType<ImageData>("com.leoz", 1, 0, "ImageData");
-
-    m_model->setParent(this);
 
     // Create the UI
     QmlDocument* qml = QmlDocument::create("asset:///main.qml").parent(this);
@@ -82,7 +81,7 @@ bool App::showFileList(const QString& path)
     if (info.isDir()) {
     	if (info.isReadable() && info.isExecutable()) {
     	    result = true;
-    	    readDir(info);
+    	    m_model->setDir(info);
     	}
     }
     else {
@@ -101,42 +100,6 @@ bool App::showImageView(const QString& path)
     info = normalizeInfo(info);
 
     return FileDataFactory::isSupportedImage(info);
-}
-
-void App::readDir(const QFileInfo& info)
-{
-	QDir dir(info.filePath());
-	QFileInfoList files = dir.entryInfoList();
-
-	m_model->clear();
-
-	bool remove_root = info.isRoot();
-
-	QString nm("");
-	QString root_nm("..");
-	QString dir_nm(".");
-
-	QString cur_name("");
-
-	foreach(const QFileInfo &fi, files) {
-		nm = fi.fileName();
-		// Do not include ".." for root
-		if (!(remove_root && nm == root_nm)) {
-			// Do not include "."
-			if (!(nm == dir_nm)) {
-				// Fix duplicate entries
-				if (nm != cur_name) {
-					cur_name = nm;
-					m_model->append(FileDataFactory::create(fi));
-				}
-			}
-		}
-		else {
-			remove_root = false;
-		}
-	}
-
-	loadImages();
 }
 
 void App::invokeFile(const QFileInfo& info)
@@ -188,14 +151,6 @@ QString App::getTitle(const QString& path)
     }
 
     return info.fileName();
-}
-
-void App::loadImages()
-{
-    // Call the load() method for each FileData instance inside the model
-    for (int row = 0; row < m_model->size(); ++row) {
-        qobject_cast<FileData*>(m_model->value(row))->load();
-    }
 }
 
 bb::cascades::DataModel* App::model() const
