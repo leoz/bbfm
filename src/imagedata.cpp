@@ -16,12 +16,32 @@ ImageData::ImageData(const QFileInfo& info)
 , m_image()
 , m_loading(false)
 , m_error()
+, m_size(ImageSizeIcon)
 {
 	m_type = FileDataTypeImage;
 }
 
 ImageData::~ImageData()
 {}
+
+void ImageData::reset()
+{
+	qWarning() << "ImageData::reset";
+
+	FileData::reset();
+
+	m_image = bb::cascades::Image();
+	m_loading = false;
+	m_error = QString();
+	m_size = ImageSizeIcon;
+
+	m_watcher.cancel();
+}
+
+void ImageData::setSize(int size)
+{
+	m_size = static_cast<ImageSize>(size);
+}
 
 ///////////////////////////////////////////////////////////////////////////////
 // Access methods
@@ -48,7 +68,7 @@ QString ImageData::error() const
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void ImageData::loadData()
+void ImageData::load()
 {
 	m_loading = true;
 	emit loadingChanged();
@@ -79,7 +99,7 @@ void ImageData::onReplyFinished()
                 const QByteArray data(reply->readAll());
 
                 // Setup the image processing thread
-                ImageProcessor *imageProcessor = new ImageProcessor(data);
+                ImageProcessor *imageProcessor = new ImageProcessor(data, m_size);
 
                 QFuture<QImage> future = QtConcurrent::run(imageProcessor, &ImageProcessor::start);
 

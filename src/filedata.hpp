@@ -24,13 +24,14 @@ class FileData : public QObject
     Q_PROPERTY(QString name READ name NOTIFY nameChanged)
     Q_PROPERTY(QString date READ date NOTIFY dateChanged)
     Q_PROPERTY(QString size READ size NOTIFY sizeChanged)
-    Q_PROPERTY(QString path READ path NOTIFY pathChanged)
+    Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
 
 public:
     FileData(const QFileInfo& info);
     ~FileData();
 
-    virtual void loadData() {}
+    Q_INVOKABLE virtual void load() {}
+    Q_INVOKABLE virtual void reset();
 
 Q_SIGNALS:
     // The change notification signals of the properties
@@ -55,6 +56,7 @@ private:
     QString name() const;
     QString date() const;
     QString path() const;
+    void setPath(const QString& path);
 
     static void setSizes();
 

@@ -17,6 +17,7 @@
 #include "filedata.hpp"
 #include "filedataicon.hpp"
 #include "filedatafactory.hpp"
+#include "imagedata.hpp"
 
 #include <bb/cascades/AbstractPane>
 #include <bb/cascades/Application>
@@ -32,6 +33,9 @@ App::App(QObject *parent)
 , m_dev_path("accounts/1000/shared")
 , m_def_path(QDir::rootPath () + m_dev_path)
 {
+    // Register custom type to QML
+    qmlRegisterType<ImageData>("com.leoz", 1, 0, "ImageData");
+
     m_model->setParent(this);
 
     // Create the UI
@@ -190,7 +194,7 @@ void App::loadImages()
 {
     // Call the load() method for each FileData instance inside the model
     for (int row = 0; row < m_model->size(); ++row) {
-        qobject_cast<FileData*>(m_model->value(row))->loadData();
+        qobject_cast<FileData*>(m_model->value(row))->load();
     }
 }
 

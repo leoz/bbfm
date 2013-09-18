@@ -24,11 +24,11 @@
 using namespace Magick;
 using namespace std;
 
-ImageProcessor::ImageProcessor(const QByteArray &imageData, QObject *parent)
-    : QObject(parent)
-    , m_data(imageData)
-{
-}
+ImageProcessor::ImageProcessor(const QByteArray& bytes, const ImageSize& size)
+: QObject()
+, m_data(bytes)
+, m_size(size)
+{}
 
 QImage ImageProcessor::start()
 {
@@ -45,7 +45,10 @@ QImage ImageProcessor::start()
     int img_h = img_size;
 
     if(result) {
-        image = image.scaled(img_w, img_h, Qt::KeepAspectRatio);
+    	// Scale image just when it is needed
+       	if(m_size != ImageSizeFull) {
+       		image = image.scaled(img_w, img_h, Qt::KeepAspectRatio);
+       	}
     }
     else {
     	// Try ImageMagick
@@ -53,9 +56,11 @@ QImage ImageProcessor::start()
         	Blob blob(m_data.constData(), m_data.size());
         	Image img(blob);
 
-        	Geometry geom(img_size,img_size);
-
-        	img.scale(geom);
+        	// Scale image just when it is needed
+        	if(m_size != ImageSizeFull) {
+				Geometry geom(img_size,img_size);
+				img.scale(geom);
+        	}
 
         	image = convert(img);
     	}

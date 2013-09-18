@@ -33,7 +33,8 @@ device {
                  $$quote($$BASEDIR/src/filedatafactory.hpp) \
                  $$quote($$BASEDIR/src/filedataicon.hpp) \
                  $$quote($$BASEDIR/src/imagedata.hpp) \
-                 $$quote($$BASEDIR/src/imageprocessor.hpp)
+                 $$quote($$BASEDIR/src/imageprocessor.hpp) \
+                 $$quote($$BASEDIR/src/imagesize.hpp)
     }
 
     CONFIG(release, debug|release) {
@@ -75,7 +76,8 @@ device {
                  $$quote($$BASEDIR/src/filedatafactory.hpp) \
                  $$quote($$BASEDIR/src/filedataicon.hpp) \
                  $$quote($$BASEDIR/src/imagedata.hpp) \
-                 $$quote($$BASEDIR/src/imageprocessor.hpp)
+                 $$quote($$BASEDIR/src/imageprocessor.hpp) \
+                 $$quote($$BASEDIR/src/imagesize.hpp)
     }
 }
 
@@ -119,7 +121,8 @@ simulator {
                  $$quote($$BASEDIR/src/filedatafactory.hpp) \
                  $$quote($$BASEDIR/src/filedataicon.hpp) \
                  $$quote($$BASEDIR/src/imagedata.hpp) \
-                 $$quote($$BASEDIR/src/imageprocessor.hpp)
+                 $$quote($$BASEDIR/src/imageprocessor.hpp) \
+                 $$quote($$BASEDIR/src/imagesize.hpp)
     }
 }
 

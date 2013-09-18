@@ -9,16 +9,19 @@
 #define IMAGEDATA_HPP_
 
 #include "filedata.hpp"
+#include "imagesize.hpp"
 
 class ImageData : public FileData
 {
     Q_OBJECT
 
 public:
-    ImageData(const QFileInfo& info);
+    ImageData(const QFileInfo& info = QFileInfo());
     ~ImageData();
 
-    virtual void loadData();
+    Q_INVOKABLE virtual void load();
+    Q_INVOKABLE virtual void reset();
+    Q_INVOKABLE virtual void setSize(int size);
 
 private Q_SLOTS:
 	void onReplyFinished();
@@ -34,6 +37,7 @@ private:
     bb::cascades::Image m_image;
     bool m_loading;
     QString m_error;
+    ImageSize m_size;
 };
 
 

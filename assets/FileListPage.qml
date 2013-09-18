@@ -63,18 +63,21 @@ Page {
             ]
 
             onTriggered: {
-				var chosenItem = dataModel.data(indexPath);
+				var chosenItem = dataModel.data(indexPath)
                 var path = chosenItem.path
                 if(_app.showFileList(path)){
-                    var nextPage = file_list_page.createObject();
+                    var nextPage = file_list_page.createObject()
                     nextPage.fileListPagePath = _app.getPath(path)
                     nextPage.fileListPageTitle = _app.getTitle(path)
                     navPane.push(nextPage);                    
                 }
                 else {
                     if(_app.showImageView(path)) {
-                        var p = image_view_page.createObject();
-//                        p.fileListPagePath = _app.getPath(path)
+                        var p = image_view_page.createObject()
+                        p.imageViewPageData.reset()
+                        p.imageViewPageData.path = _app.getPath(path)
+                        p.imageViewPageData.setSize(2)
+                        p.imageViewPageData.load()
                         p.imageViewPageTitle = _app.getTitle(path)
                         navPane.push(p);                                            
                     }

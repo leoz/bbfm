@@ -24,6 +24,14 @@ const QString FileData::m_date_format("dd.MM.yyyy hh:mm");
 
 QStringList FileData::m_size_list;
 
+void FileData::reset()
+{
+	qWarning() << "FileData::reset";
+
+	m_type = FileDataTypeUnknown;
+	m_info = QFileInfo();
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 // Access methods
 
@@ -45,6 +53,12 @@ QString FileData::size() const
      }
 
      return QString().setNum(num,'f', 0) + " " + unit;
+}
+
+void FileData::setPath(const QString& path)
+{
+	reset();
+	m_info = QFileInfo(path);
 }
 
 QString FileData::name() const

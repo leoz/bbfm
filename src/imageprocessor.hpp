@@ -20,6 +20,8 @@
 #include <QtCore/QObject>
 #include <QtGui/QImage>
 
+#include "imagesize.hpp"
+
 namespace Magick {
 	class Image;
 }
@@ -30,19 +32,13 @@ namespace Magick {
  * The class is designed to be used inside a QThread by providing a separated
  * start() slot and a finished() signal.
  */
-//! [0]
+
 class ImageProcessor : public QObject
 {
     Q_OBJECT
 
 public:
-    /*
-     * Creates a new image processor.
-     *
-     * @param imageData The raw image data.
-     * @param parent The parent object.
-     */
-    ImageProcessor(const QByteArray &imageData, QObject *parent = 0);
+    ImageProcessor(const QByteArray& bytes, const ImageSize& size);
 
 public Q_SLOTS:
     /*
@@ -55,7 +51,7 @@ private:
 
     // The raw image data
     QByteArray m_data;
+    ImageSize m_size;
 };
-//! [0]
 
 #endif
