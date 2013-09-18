@@ -35,7 +35,8 @@ App::App(QObject *parent)
 , m_def_path(QDir::rootPath () + m_dev_path)
 {
     // Register custom type to QML
-    qmlRegisterType<ImageData>("com.leoz", 1, 0, "ImageData");
+    qmlRegisterType<ImageData>        ("com.leoz", 1, 0, "ImageData");
+    qmlRegisterType<FileDataListModel>("com.leoz", 1, 0, "FileDataListModel");
 
     // Create the UI
     QmlDocument* qml = QmlDocument::create("asset:///main.qml").parent(this);
@@ -46,9 +47,6 @@ App::App(QObject *parent)
 
     // Load file icons
     FileDataIcon::loadIcons();
-
-    // Fill the model with data
-    showFileList(m_def_path);
 }
 
 App::~App()
@@ -81,7 +79,6 @@ bool App::showFileList(const QString& path)
     if (info.isDir()) {
     	if (info.isReadable() && info.isExecutable()) {
     	    result = true;
-    	    m_model->setDir(info);
     	}
     }
     else {
@@ -153,7 +150,3 @@ QString App::getTitle(const QString& path)
     return info.fileName();
 }
 
-bb::cascades::DataModel* App::model() const
-{
-    return m_model;
-}

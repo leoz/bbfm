@@ -18,7 +18,7 @@ class FileDataListModel : public bb::cascades::QListDataModel<QObject*>
 public:
     FileDataListModel(QObject *parent = 0);
 
-    void setDir(const QFileInfo& info);
+    Q_INVOKABLE void setDir(const QString& path);
 
 private:
     void addFile(const QFileInfo& info);

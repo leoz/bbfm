@@ -27,9 +27,6 @@ class App : public QObject
 {
     Q_OBJECT
 
-    // The model that contains the progress and image data
-    Q_PROPERTY(bb::cascades::DataModel* model READ model CONSTANT)
-
 public:
     App(QObject *parent = 0);
     ~App();
@@ -44,9 +41,6 @@ public:
 private:
     void invokeFile(const QFileInfo& info);
     QFileInfo normalizeInfo(QFileInfo& info);
-
-    // The accessor method for the property
-    bb::cascades::DataModel* model() const;
 
     // The model that contains the progress and image data
     FileDataListModel* m_model;

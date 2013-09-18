@@ -20,12 +20,16 @@ FileDataListModel::FileDataListModel(QObject *parent)
 
 ///////////////////////////////////////////////////////////////////////////////
 
-void FileDataListModel::setDir(const QFileInfo& info)
+void FileDataListModel::setDir(const QString& path)
 {
-	QDir dir(info.filePath());
+	qWarning() << "FileDataListModel::setDir " << path;
+
+	QDir dir(path);
 	QFileInfoList files = dir.entryInfoList();
 
 	clear();
+
+	QFileInfo info(path);
 
 	bool remove_root = info.isRoot();
 

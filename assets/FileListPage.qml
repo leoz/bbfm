@@ -1,8 +1,10 @@
 import bb.cascades 1.2
+import com.leoz 1.0
 
 Page {    
     property alias fileListPageTitle: titlebar.title
     property alias fileListPagePath: title_path.text
+    property alias fileListPageModel: list_model
     
     titleBar: TitleBar {
         id: titlebar
@@ -48,7 +50,7 @@ Page {
             horizontalAlignment: HorizontalAlignment.Center
             verticalAlignment: VerticalAlignment.Bottom
             
-            dataModel: _app.model
+            dataModel: list_model
                         
             listItemComponents: [
                 ListItemComponent {
@@ -83,8 +85,18 @@ Page {
                     }
                 }
             }
+            
+            attachedObjects: [
+                FileDataListModel {
+                    id: list_model
+                }                
+            ]
         }
-    }    
+    }
+    
+    onFileListPagePathChanged: {
+        list_model.setDir(fileListPagePath)
+    }   
     
     attachedObjects: [
         ComponentDefinition {
