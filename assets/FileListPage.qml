@@ -67,22 +67,40 @@ Page {
             onTriggered: {
 				var chosenItem = dataModel.data(indexPath)
                 var path = chosenItem.path
-                if(_app.showFileList(path)){
-                    var nextPage = file_list_page.createObject()
-                    nextPage.fileListPagePath = _app.getPath(path)
-                    nextPage.fileListPageTitle = _app.getTitle(path)
-                    navPane.push(nextPage);                    
+                var go_back = false
+                var new_path = _app.getPath(path)
+                var new_title = _app.getTitle(path)
+                
+                if(navPane.count() > 1) {
+                    var p = navPane.at(navPane.count() - 2)
+                    if(p) {
+                        if(new_path == p.fileListPagePath) {
+                            go_back = true;
+                        }
+                    }                    
+                }
+                
+                if (go_back) {
+                    navPane.pop()                                            
                 }
                 else {
-                    if(_app.showImageView(path)) {
-                        var p = image_view_page.createObject()
-                        p.imageViewPageData.reset()
-                        p.imageViewPageData.path = _app.getPath(path)
-                        p.imageViewPageData.setSize(2)
-                        p.imageViewPageData.load()
-                        p.imageViewPageTitle = _app.getTitle(path)
-                        navPane.push(p);                                            
+                    if(_app.showFileList(path)){
+                        var nextPage = file_list_page.createObject()
+                        nextPage.fileListPagePath = new_path
+                        nextPage.fileListPageTitle = new_title
+                        navPane.push(nextPage);                    
                     }
+                    else {
+                        if(_app.showImageView(path)) {
+                            var p = image_view_page.createObject()
+                            p.imageViewPageData.reset()
+                            p.imageViewPageData.path = new_path
+                            p.imageViewPageData.setSize(2)
+                            p.imageViewPageData.load()
+                            p.imageViewPageTitle = new_title
+                            navPane.push(p);                                            
+                        }
+                    }                    
                 }
             }
             
