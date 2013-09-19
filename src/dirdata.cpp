@@ -14,7 +14,12 @@ DirData::DirData(const QFileInfo& info)
 : FileData(info)
 {
 	if (m_info.isReadable() && m_info.isExecutable()) {
-		m_type = FileDataTypeDir;
+		if(m_info.isSymLink()) {
+			m_type = FileDataTypeDirSymLink;
+		}
+		else {
+			m_type = FileDataTypeDir;
+		}
 	}
 	else {
 		m_type = FileDataTypeDirNoAccess;

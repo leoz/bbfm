@@ -14,6 +14,7 @@ enum FileDataType {
 	FileDataTypeUnknown,
 	FileDataTypeDir,
 	FileDataTypeDirNoAccess,
+	FileDataTypeDirSymLink,
 	FileDataTypeImage
 };
 
