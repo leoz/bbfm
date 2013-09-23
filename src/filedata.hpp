@@ -27,7 +27,7 @@ class FileData : public QObject
     Q_PROPERTY(QString path READ path WRITE setPath NOTIFY pathChanged)
 
 public:
-    FileData(const QFileInfo& info);
+    FileData(const QUrl& url);
     ~FileData();
 
     Q_INVOKABLE virtual void load() {}
@@ -44,8 +44,11 @@ Q_SIGNALS:
     void pathChanged();
 
 protected:
+    QString name() const;
+    QString path() const;
+
     FileDataType m_type;
-    QFileInfo m_info;
+    QUrl m_url;
 
 private:
     // The access methods for the properties
@@ -53,9 +56,8 @@ private:
     virtual bool loading() const { return false; }
     virtual QString error() const {  return QString(); }
     virtual QString size() const;
-    QString name() const;
     QString date() const;
-    QString path() const;
+
     void setPath(const QString& path);
 
     static void setSizes();

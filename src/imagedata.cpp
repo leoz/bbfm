@@ -6,19 +6,32 @@
  */
 
 #include "imagedata.hpp"
-#include "imageprocessor.hpp"
+#include "imageloader.hpp"
+
+#include <bb/ImageData>
+
+#include <QNetworkAccessManager>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QUrl>
+#include <QDebug>
 
 ///////////////////////////////////////////////////////////////////////////////
 // Constructor/Destructor
 
-ImageData::ImageData(const QFileInfo& info)
-: FileData(info)
+ImageData::ImageData(const QUrl& url)
+: FileData(url)
 , m_image()
 , m_loading(false)
 , m_error()
 , m_size(ImageSizeIcon)
 {
-	m_type = FileDataTypeImage;
+	if(m_url.isLocalFile()) {
+		m_type = FileDataTypeImage;
+	}
+	else {
+		m_type = FileDataTypeImageRemote;
+	}
 }
 
 ImageData::~ImageData()
@@ -70,26 +83,60 @@ QString ImageData::error() const
 
 void ImageData::load()
 {
+	if (m_url.isLocalFile()) {
+		load_local();
+	}
+	else {
+		load_remote();
+	}
+}
+
+void ImageData::load_local()
+{
+    // Setup the image loader thread
+	ImageLoader* loader = new ImageLoader(path(), m_size);
+
+    QFuture<QImage> future = QtConcurrent::run(loader, &ImageLoader::start2);
+
+    // Invoke our onProcessingFinished slot after the processing has finished.
+    bool ok = connect(&m_watcher, SIGNAL(finished()), this, SLOT(onImageProcessingFinished()));
+    Q_ASSERT(ok);
+    Q_UNUSED(ok);
+
+    // starts watching the given future
+    m_watcher.setFuture(future);
+}
+
+void ImageData::load_remote()
+{
+	qWarning() << "@@@ mageData::load_remote - BEGIN - " << name();
+
 	m_loading = true;
 	emit loadingChanged();
 
 	QNetworkAccessManager* netManager = new QNetworkAccessManager(this);
 
-	QString path = "file://" + m_info.filePath();
-
-	const QUrl url(path);
-
-	QNetworkRequest request(url);
+	QNetworkRequest request(m_url);
 
 	QNetworkReply* reply = netManager->get(request);
+
+	qWarning() << "+++ mageData::load - reply is: " << reply;
+
 	bool ok = connect(reply, SIGNAL(finished()), this, SLOT(onReplyFinished()));
+
+	qWarning() << "+++ mageData::load - result is: " << ok;
+
 	Q_ASSERT(ok);
 	Q_UNUSED(ok);
+
+	qWarning() << "@@@ mageData::load_remote - END - " << name();
 }
 
 void ImageData::onReplyFinished()
 {
-    QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
+	qWarning() << "@@@ mageData::onReplyFinished - BEGIN - " << name();
+
+	QNetworkReply* reply = qobject_cast<QNetworkReply*>(sender());
 
     QString response;
     if (reply) {
@@ -98,10 +145,10 @@ void ImageData::onReplyFinished()
             if (available > 0) {
                 const QByteArray data(reply->readAll());
 
-                // Setup the image processing thread
-                ImageProcessor *imageProcessor = new ImageProcessor(data, m_size);
+                // Setup the image loader thread
+                ImageLoader* loader = new ImageLoader(data, m_size);
 
-                QFuture<QImage> future = QtConcurrent::run(imageProcessor, &ImageProcessor::start);
+                QFuture<QImage> future = QtConcurrent::run(loader, &ImageLoader::start);
 
                 // Invoke our onProcessingFinished slot after the processing has finished.
                 bool ok = connect(&m_watcher, SIGNAL(finished()), this, SLOT(onImageProcessingFinished()));
@@ -128,10 +175,14 @@ void ImageData::onReplyFinished()
         m_loading = false;
         emit loadingChanged();
     }
+
+	qWarning() << "@@@ mageData::onReplyFinished - END - " << name();
 }
 
 void ImageData::onImageProcessingFinished()
 {
+	qWarning() << "@@@ mageData::onImageProcessingFinished - BEGIN - " << name();
+
     const QImage swappedImage = m_watcher.future().result().rgbSwapped();
 
     if(!swappedImage.isNull()) {
@@ -146,6 +197,8 @@ void ImageData::onImageProcessingFinished()
 
     m_loading = false;
     emit loadingChanged();
+
+	qWarning() << "@@@ mageData::onImageProcessingFinished - END - " << name();
 }
 
 ///////////////////////////////////////////////////////////////////////////////

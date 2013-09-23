@@ -15,7 +15,7 @@ class DirData : public FileData
     Q_OBJECT
 
 public:
-    DirData(const QFileInfo& info);
+    DirData(const QUrl& url);
     ~DirData();
 
 private:

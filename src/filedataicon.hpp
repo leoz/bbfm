@@ -15,7 +15,8 @@ enum FileDataType {
 	FileDataTypeDir,
 	FileDataTypeDirNoAccess,
 	FileDataTypeDirSymLink,
-	FileDataTypeImage
+	FileDataTypeImage,
+	FileDataTypeImageRemote
 };
 
 struct FileDataIcon {

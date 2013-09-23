@@ -1,22 +1,15 @@
-/* Copyright (c) 2012, 2013  BlackBerry Limited.
+/*
+ * imageloader.cpp
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ *  Created on: Sep 21, 2013
+ *      Author: leoz
  */
 
-#include "imageprocessor.hpp"
-
+#include <QFile>
 #include <QDebug>
-#include <Qt/qcolor.h>
+#include <QColor>
+
+#include "imageloader.hpp"
 
 #include <string>
 #include <Magick++.h>
@@ -24,30 +17,32 @@
 using namespace Magick;
 using namespace std;
 
-ImageProcessor::ImageProcessor(const QByteArray& bytes, const ImageSize& size)
-: QObject()
-, m_data(bytes)
+ImageLoader::ImageLoader(const QByteArray &imageData, const ImageSize& size)
+: m_data(imageData)
+, m_path()
 , m_size(size)
 {}
 
-QImage ImageProcessor::start()
+ImageLoader::ImageLoader(const QString &path, const ImageSize& size)
+: m_data()
+, m_path(path)
+, m_size(size)
+{}
+
+QImage ImageLoader::start()
 {
     QImage image;
 
     bool result = image.loadFromData(m_data);
 
-//    int img_w = 768;
-//    int img_h = 500;
-
-    int img_size = 90;
-
-    int img_w = img_size;
-    int img_h = img_size;
+    int size = 82;
+    int size_w = size;
+    int size_h = size;
 
     if(result) {
     	// Scale image just when it is needed
        	if(m_size != ImageSizeFull) {
-       		image = image.scaled(img_w, img_h, Qt::KeepAspectRatio);
+       		image = image.scaled(size_w, size_h, Qt::KeepAspectRatioByExpanding);
        	}
     }
     else {
@@ -58,7 +53,7 @@ QImage ImageProcessor::start()
 
         	// Scale image just when it is needed
         	if(m_size != ImageSizeFull) {
-				Geometry geom(img_size,img_size);
+				Geometry geom(size_w,size_h);
 				img.scale(geom);
         	}
 
@@ -70,12 +65,23 @@ QImage ImageProcessor::start()
     	}
     }
 
-    // Image processing goes here, example could be adding water mark to the downloaded image
-
     return image;
 }
 
-QImage ImageProcessor::convert(const Magick::Image &image)
+QImage ImageLoader::start2()
+{
+    QFile file(m_path);
+
+    file.open(QIODevice::ReadOnly);
+
+    m_data = file.readAll();
+
+    file.close();
+
+    return ImageLoader::start();
+}
+
+QImage ImageLoader::convert(const Magick::Image &image)
 {
     qDebug() << "convert:" << image.columns() << image.rows();
 

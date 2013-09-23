@@ -1,0 +1,11 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource>
+<file>assets/images/folder.png</file>
+<file>assets/images/folder-symlink.png</file>
+<file>assets/images/folder-system.png</file>
+<file>assets/images/image-remote.png</file>
+<file>assets/images/image-x-generic.png</file>
+<file>assets/images/unknown.png</file>
+</qresource>
+</RCC>

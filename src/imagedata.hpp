@@ -16,7 +16,7 @@ class ImageData : public FileData
     Q_OBJECT
 
 public:
-    ImageData(const QFileInfo& info = QFileInfo());
+    ImageData(const QUrl& url = QUrl());
     ~ImageData();
 
     Q_INVOKABLE virtual void load();
@@ -31,6 +31,9 @@ private:
     virtual QVariant icon() const;
     virtual bool loading() const;
     virtual QString error() const;
+
+    void load_local();
+    void load_remote();
 
     QFutureWatcher<QImage> m_watcher;
 

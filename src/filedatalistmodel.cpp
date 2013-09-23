@@ -12,8 +12,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Constructor/Destructor
 
-FileDataListModel::FileDataListModel(QObject *parent)
+FileDataListModel::FileDataListModel(bool load, QObject *parent)
 : QListDataModel<QObject*>()
+, m_load(load)
 {
 	setParent(parent);
 }
@@ -48,7 +49,7 @@ void FileDataListModel::setDir(const QString& path)
 				// Fix duplicate entries
 				if (nm != cur_name) {
 					cur_name = nm;
-					addFile(fi);
+					addFile(QUrl::fromLocalFile(fi.filePath()));
 				}
 			}
 		}
@@ -57,12 +58,14 @@ void FileDataListModel::setDir(const QString& path)
 		}
 	}
 
-	loadData();
+	if(m_load) {
+		loadData();
+	}
 }
 
-void FileDataListModel::addFile(const QFileInfo& info)
+void FileDataListModel::addFile(const QUrl& url)
 {
-	append(FileDataFactory::create(info));
+	append(FileDataFactory::create(url));
 }
 
 void FileDataListModel::loadData()

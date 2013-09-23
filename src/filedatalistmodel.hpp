@@ -16,13 +16,14 @@ class FileDataListModel : public bb::cascades::QListDataModel<QObject*>
     Q_OBJECT
 
 public:
-    FileDataListModel(QObject *parent = 0);
+    FileDataListModel(bool load = true, QObject *parent = 0);
 
     Q_INVOKABLE void setDir(const QString& path);
+    void addFile(const QUrl& url);
+    void loadData();
 
 private:
-    void addFile(const QFileInfo& info);
-    void loadData();
+    bool m_load;
 };
 
 #endif /* FILEDATALISTMODEL_HPP_ */

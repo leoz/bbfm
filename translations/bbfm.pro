@@ -1,1 +1,0 @@
-include (../bbfm.pro)

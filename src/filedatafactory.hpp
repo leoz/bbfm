@@ -8,14 +8,14 @@
 #ifndef FILEDATAFACTORY_HPP_
 #define FILEDATAFACTORY_HPP_
 
-#include <QFileInfo>
+#include <QUrl>
 
 class FileData;
 
 struct FileDataFactory {
-    static FileData* create(const QFileInfo& info);
-    static bool isImage(const QFileInfo& info);
-    static bool isSupportedImage(const QFileInfo& info);
+    static FileData* create(const QUrl& url);
+    static bool isImage(const QUrl& url);
+    static bool isSupportedImage(const QUrl& url);
 
 private:
     static void setImageExts();

@@ -10,9 +10,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Constructor/Destructor and static data
 
-FileData::FileData(const QFileInfo& info)
+FileData::FileData(const QUrl& url)
 : m_type(FileDataTypeUnknown)
-, m_info(info)
+, m_url(url)
 {
 	FileData::setSizes();
 }
@@ -20,7 +20,7 @@ FileData::FileData(const QFileInfo& info)
 FileData::~FileData()
 {}
 
-const QString FileData::m_date_format("dd.MM.yyyy hh:mm");
+const QString FileData::m_date_format("MMM dd, yyyy h:mm A");
 
 QStringList FileData::m_size_list;
 
@@ -29,7 +29,7 @@ void FileData::reset()
 	qWarning() << "FileData::reset";
 
 	m_type = FileDataTypeUnknown;
-	m_info = QFileInfo();
+	m_url = QUrl();
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@ QVariant FileData::icon() const
 
 QString FileData::size() const
 {
-     float num = m_info.size();
+     float num = QFileInfo(m_url.path()).size();
 
      QStringListIterator i(m_size_list);
      QString unit("bytes");
@@ -58,22 +58,22 @@ QString FileData::size() const
 void FileData::setPath(const QString& path)
 {
 	reset();
-	m_info = QFileInfo(path);
+	m_url = QUrl(path);
 }
 
 QString FileData::name() const
 {
-	return m_info.fileName();
+	return QFileInfo(m_url.path()).fileName();
 }
 
 QString FileData::date() const
 {
-	return m_info.created().toString(m_date_format);
+	return QFileInfo(m_url.path()).created().toString(m_date_format);
 }
 
 QString FileData::path() const
 {
-    return m_info.filePath();
+    return m_url.path();
 }
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -9,22 +9,26 @@
 #include "imagedata.hpp"
 #include "dirdata.hpp"
 
-FileData* FileDataFactory::create(const QFileInfo& info)
+FileData* FileDataFactory::create(const QUrl& url)
 {
+	QFileInfo info(url.path());
+
 	if (info.isDir()) {
-		return new DirData(info);
+		return new DirData(url);
 	}
 	else {
-		if (isImage(info)) {
-			return new ImageData(info);
+		if (isImage(url)) {
+			return new ImageData(url);
 		}
 
-		return new FileData(info);
+		return new FileData(url);
 	}
 }
 
-bool FileDataFactory::isImage(const QFileInfo& info)
+bool FileDataFactory::isImage(const QUrl& url)
 {
+	QFileInfo info(url.path());
+
     if (info.isDir()) {
     	return false;
     }
@@ -47,8 +51,10 @@ bool FileDataFactory::isImage(const QFileInfo& info)
     return false;
 }
 
-bool FileDataFactory::isSupportedImage(const QFileInfo& info)
+bool FileDataFactory::isSupportedImage(const QUrl& url)
 {
+	QFileInfo info(url.path());
+
     if (info.isDir()) {
     	return false;
     }

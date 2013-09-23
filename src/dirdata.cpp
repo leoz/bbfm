@@ -10,11 +10,13 @@
 ///////////////////////////////////////////////////////////////////////////////
 // Constructor/Destructor
 
-DirData::DirData(const QFileInfo& info)
-: FileData(info)
+DirData::DirData(const QUrl& url)
+: FileData(url)
 {
-	if (m_info.isReadable() && m_info.isExecutable()) {
-		if(m_info.isSymLink()) {
+	QFileInfo info(m_url.path());
+
+	if (info.isReadable() && info.isExecutable()) {
+		if(info.isSymLink()) {
 			m_type = FileDataTypeDirSymLink;
 		}
 		else {
@@ -34,11 +36,13 @@ DirData::~DirData()
 
 QString DirData::size() const
 {
-	if (m_info.fileName() == QString("..")) {
+	QFileInfo info(m_url.path());
+
+	if (info.fileName() == QString("..")) {
 		return QString("<DIR>");
 	}
 
-	QDir dir(m_info.filePath());
+	QDir dir(info.filePath());
 	uint count = dir.count();
 	QString text("items");
 
